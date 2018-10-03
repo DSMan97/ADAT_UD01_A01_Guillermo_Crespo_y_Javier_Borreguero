@@ -61,7 +61,6 @@ public class FileManager implements Intercambio {
 		Controlador mControlador = new Controlador();
 		
 		try {
-			propiedades.load(entrada);
 			   mVista.PedirDatos(ListaVideojuegos);
 				BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true));
 				for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
