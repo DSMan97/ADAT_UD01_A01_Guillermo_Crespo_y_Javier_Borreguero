@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
@@ -43,8 +43,8 @@ INSERT INTO `personajes` (`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES
 (2, 'Nathan Drake', 1),
 (3, 'Princesa Peach', 0);
 
--- --------------------------------------------------------
-
+----------------------------------------------------------
+CREATE DATABASE videojuegos;
 --
 -- Estructura de tabla para la tabla `videojuegos`
 --
