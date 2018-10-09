@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2018 a las 20:49:00
--- Versión del servidor: 10.1.29-MariaDB
--- Versión de PHP: 7.2.0
+-- Tiempo de generación: 09-10-2018 a las 12:25:52
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `videojuegos`
 --
+CREATE DATABASE videojuegos
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personajes`
+--
+
+CREATE TABLE `personajes` (
+  `ID` int(11) NOT NULL,
+  `Nombre_Personaje` varchar(140) NOT NULL,
+  `ID_Juego` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `personajes`
+--
+
+INSERT INTO `personajes` (`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES
+(1, 'Mario', 0),
+(2, 'Nathan Drake', 1),
+(3, 'Princesa Peach', 0);
 
 -- --------------------------------------------------------
 
@@ -41,17 +62,34 @@ CREATE TABLE `videojuegos` (
 --
 
 INSERT INTO `videojuegos` (`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES
-(0, 'Super', 'ayer', 'Nintendo', 'DS');
+(0, 'Super', 'ayer', 'Nintendo', 'DS'),
+(1, 'Uncharted', '20/11/2007', 'Naughty Dog', 'PS3');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `personajes`
+--
+ALTER TABLE `personajes`
+  ADD KEY `ID_Juego` (`ID_Juego`);
+
+--
 -- Indices de la tabla `videojuegos`
 --
 ALTER TABLE `videojuegos`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `personajes`
+--
+ALTER TABLE `personajes`
+  ADD CONSTRAINT `personajes_ibfk_1` FOREIGN KEY (`ID_Juego`) REFERENCES `videojuegos` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
