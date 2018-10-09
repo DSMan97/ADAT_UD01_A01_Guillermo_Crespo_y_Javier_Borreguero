@@ -12,4 +12,5 @@ public interface Intercambio {
 	public HashMap<Integer, Videojuego> Añadir();
 	public HashMap<Integer, Videojuego>LeerTodos();
 	
+	
 }

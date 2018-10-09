@@ -16,7 +16,7 @@ public class Videojuego {
 		
 		
 	}
-
+//Personajes
 
 
 	public String getNombre() {
