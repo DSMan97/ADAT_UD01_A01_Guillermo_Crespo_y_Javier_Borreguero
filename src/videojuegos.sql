@@ -22,8 +22,8 @@ SET time_zone = "+00:00";
 -- Base de datos: `videojuegos`
 --
 
---CREATE DATABASE VIDEOJUEGOS; --------------------------------------------------------
-
+----------------------------------------------------------
+CREATE DATABASE VIDEOJUEGOS;
 --
 -- Estructura de tabla para la tabla `videojuegos`
 --
