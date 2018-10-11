@@ -18,6 +18,7 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.Map.Entry;
 import Modelo.Modelo;
+import Videojuegos.Personajes;
 import Videojuegos.Videojuego;
 import Interface.Intercambio;
 import Vistas.Inicio;
@@ -26,6 +27,7 @@ import Controlador.Controlador;
 public class BD_Manager implements Intercambio {
 	private String archivo = "src/Modelo/fichero.txt";
 	HashMap<Integer, Videojuego> ListaVideojuegos = new HashMap<Integer, Videojuego>();
+	HashMap<Integer, Personajes> ListaPersonajes = new HashMap<Integer, Personajes>();
 	Modelo mModelo = new Modelo();
 	Inicio mVista = new Inicio();
 
@@ -42,8 +44,6 @@ public class BD_Manager implements Intercambio {
 			Properties propiedades = new Properties();
 			InputStream entrada = new FileInputStream(archivo);
 			
-			
-				
 			fr = new FileReader (archivo);
 			 br = new BufferedReader(fr);
 				
@@ -94,6 +94,7 @@ public class BD_Manager implements Intercambio {
 		mVista.PedirDatos(ListaVideojuegos);
 		
 		
+		
 		for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
 			String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
 					+idtxt+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
@@ -101,23 +102,50 @@ public class BD_Manager implements Intercambio {
 			pstm = mModelo.conexion.prepareStatement(cargar);
 			int rset = pstm.executeUpdate();
 		}
-		
-		
-		
-		
-			
 			mControlador.Cargar_Inicio();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
+	
 		return ListaVideojuegos;
 	}
 
+	
+	@Override
+	public HashMap<Integer, Personajes> AñadirPer() {
+		try {
+		Controlador mControlador = new Controlador();
+		PreparedStatement pstm;
+		Scanner id = new Scanner(System.in);
+		System.out.println("ID:");
+		String idtxt = id.nextLine();
+		mVista.PedirDatoPer(ListaPersonajes);
 		
 		
+		
+		for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
+			String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
+					+idtxt+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
+					+ "'" + entry.getValue().getPlataforma() + "'" + ")";
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			int rset = pstm.executeUpdate();
+		}
+			mControlador.Cargar_Inicio();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		return AñadirPer();
+	}
+		
+		
+	
+	
+	
 
 	
 

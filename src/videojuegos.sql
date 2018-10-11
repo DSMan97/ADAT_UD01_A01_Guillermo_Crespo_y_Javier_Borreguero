@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2018 a las 12:25:52
+-- Tiempo de generación: 11-10-2018 a las 13:03:35
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `videojuegos`
 --
-CREATE DATABASE videojuegos
+
 -- --------------------------------------------------------
 
 --
@@ -43,8 +43,8 @@ INSERT INTO `personajes` (`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES
 (2, 'Nathan Drake', 1),
 (3, 'Princesa Peach', 0);
 
-----------------------------------------------------------
-CREATE DATABASE videojuegos;
+-- --------------------------------------------------------
+
 --
 -- Estructura de tabla para la tabla `videojuegos`
 --

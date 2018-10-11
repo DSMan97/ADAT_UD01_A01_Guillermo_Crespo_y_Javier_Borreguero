@@ -23,6 +23,7 @@ import Controlador.Controlador;
 import Interface.Intercambio;
 import Main.Main;
 import Modelo.Modelo;
+import Videojuegos.Personajes;
 import Videojuegos.Videojuego;
 
 public class Inicio {
@@ -96,7 +97,23 @@ public class Inicio {
 		}
 
 	 
-	 		
+
+
+public void PedirDatoPer(HashMap<Integer, Personajes> listaPersonajes) {
+	// TODO Auto-generated method stub
+	Scanner scanner = new Scanner(System.in);
+	System.out.println("ID: ");
+	int IDtxt = scanner.nextInt();
+	System.out.println("Nombre del Personaje: ");
+	String namePtxt = scanner.nextLine();
+	System.out.println("Nombre del Personaje: ");
+	int ID2txt = scanner.nextInt();
+	Personajes mPersonaje = new Personajes(IDtxt,namePtxt, ID2txt);
+	
+		listaPersonajes.putAll(listaPersonajes);
+	
+}
+
 	 		
 		
 		 

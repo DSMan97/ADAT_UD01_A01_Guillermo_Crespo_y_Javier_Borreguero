@@ -22,6 +22,7 @@ import java.util.Scanner;
 
 import Interface.Intercambio;
 import Modelo.Modelo;
+import Videojuegos.Personajes;
 import Videojuegos.Videojuego;
 import Vistas.Inicio;
 public class FileManager implements Intercambio {
@@ -116,6 +117,13 @@ public class FileManager implements Intercambio {
 				e1.printStackTrace();
 			}
 		return ListaVideojuegos;
+	}
+
+
+	@Override
+	public HashMap<Integer, Personajes> AñadirPer() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 	}
