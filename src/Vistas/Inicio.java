@@ -254,11 +254,11 @@ public class Inicio {
 			System.out.println("Nombre del Personaje: ");
 			String namePtxt = scanner.nextLine();
 
-			
+
 			Personajes mPersonaje = new Personajes(namePtxt, id);
 
 			listaPersonajes.put(idper, mPersonaje);
-		
+
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
