@@ -134,7 +134,7 @@ public class FileManager implements Intercambio {
 		Controlador mControlador = new Controlador();
 
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, false));
 			
 			PreparedStatement pstm;
 			String cargar = "Select * from videojuegos";
@@ -176,10 +176,10 @@ public class FileManager implements Intercambio {
 		Controlador mControlador = new Controlador();
 
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_personajes, false));
 			
 			PreparedStatement pstm;
-			String cargar = "Select * from videojuegos";
+			String cargar = "Select * from personajes";
 			ResultSet rset;
 			pstm = mModelo.conexion.prepareStatement(cargar);
 			rset = pstm.executeQuery();

@@ -17,6 +17,9 @@ public class Controlador {
 	public void ImprimirDatos() {
 		mBD.LeerTodos();
 	}
+	public void ImprimirDatosPer() {
+		mBD.LeerTodosPer();
+	}
 	public void InsertarBBDD() {
 		mBD.Añadir();
 	}

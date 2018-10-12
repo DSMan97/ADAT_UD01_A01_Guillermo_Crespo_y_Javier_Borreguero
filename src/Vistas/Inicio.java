@@ -66,18 +66,17 @@ public class Inicio {
 			
 			break;
 		case 3:
-			System.out.println("1: Leer Videojuegos");
-			System.out.println("2: Leer Personajes");
+			System.out.println("1: Pasar tabla Videojuegos a Fichero");
+			System.out.println("2: Pasar tabla Personajes a Fichero");
 			Scanner opt2 = new Scanner(System.in);
 			System.out.print("Elija una opción:  ");
 			int eleccion2 = opt.nextInt();
 			switch (eleccion2) {
 			case 1:
-				mControlador.Leer_Fichero();
 				mControlador.BBDD2TXT();
 				break;
 			case 2:
-				mControlador.Leer_FicheroPer();
+				mControlador.BBDD2TXTPer();
 			default:
 				break;
 			
@@ -88,7 +87,21 @@ public class Inicio {
 			mControlador.TXT2BBDD();
 			break;
 		case 5:
-			mControlador.ImprimirDatos();
+			System.out.println("1: Leer Tabla Videojuegos");
+			System.out.println("2: Leer Tabla Personajes");
+			Scanner opt3 = new Scanner(System.in);
+			System.out.print("Elija una opción:  ");
+			int eleccion3 = opt3.nextInt();
+			switch (eleccion3) {
+			case 1:
+				mControlador.ImprimirDatos();
+				break;
+			case 2:
+				mControlador.ImprimirDatosPer();
+			default:
+				break;
+			}
+			
 			break;
 		case 6:
 			mControlador.InsertarBBDD();
@@ -106,6 +119,13 @@ public class Inicio {
 			System.out.println("Plataforma: " + videojuego.getValue().getPlataforma());
 			System.out.println("Fecha de Lanzamiento: " + videojuego.getValue().getFecha_Lanzamiento());
 			System.out.println("Desarrollador: " + videojuego.getValue().getDesarrollador());
+		}
+	}
+	public void sacarPantallaPer(HashMap<Integer, Personajes> listaPersonajes) {
+		for (Entry<Integer, Personajes> videojuego : listaPersonajes.entrySet()) {
+			System.out.println("ID: " + videojuego.getKey().toString());
+			System.out.println("Nombre: " + videojuego.getValue().getNombre_Personaje());
+			System.out.println("ID_Juego: " + videojuego.getValue().getID_Juego());
 		}
 	}
 

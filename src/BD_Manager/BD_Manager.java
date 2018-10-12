@@ -184,5 +184,34 @@ public class BD_Manager implements Intercambio {
 
 		return ListaVideojuegos;
 	}
+	
+	public HashMap<Integer, Personajes> LeerTodosPer() {
+		Modelo mModelo = new Modelo();
+		Controlador mControlador = new Controlador();
+		// TODO Auto-generated method stub
+		PreparedStatement pstm;
+		String cargar = "Select * from personajes";
+		try {
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			ResultSet rset = pstm.executeQuery();
+			while (rset.next()) {
+				int id1 = rset.getInt(1);
+				String Nombre = rset.getString("Nombre_Personaje");
+				int id_juego = rset.getInt("ID_Juego");
+				Personajes mPersonaje = new Personajes(Nombre,id_juego);
+		
+			ListaPersonajes.put(id1, mPersonaje);
+				
+
+			}
+			mVista.sacarPantallaPer(ListaPersonajes);
+			mControlador.Cargar_Inicio();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ListaPersonajes;
+	}
 
 }
