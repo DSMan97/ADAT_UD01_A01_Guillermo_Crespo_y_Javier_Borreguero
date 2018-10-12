@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `personajes`
 --
-
+CREATE DATABASE videojuegos;
 CREATE TABLE `personajes` (
   `ID` int(11) NOT NULL,
   `Nombre_Personaje` varchar(140) NOT NULL,

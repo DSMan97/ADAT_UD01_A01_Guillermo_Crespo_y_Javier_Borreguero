@@ -3,3 +3,13 @@ Nombre: New Super Mario Bros
 Plataforma: DS
 Fecha de Lanzamiento: 12 de Mayo de 2006
 Desarrollador: Nintendo
+ID: 0
+Nombre: gtrh
+Plataforma: DS
+Fecha de Lanzamiento: hoy
+Desarrollador: Sony
+ID: 0
+Nombre: fwg
+Plataforma: fvg
+Fecha de Lanzamiento: gbgr
+Desarrollador: fvrtg
