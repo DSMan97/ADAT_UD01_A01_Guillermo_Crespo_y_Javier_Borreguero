@@ -1,3 +1,12 @@
 ID: 0
 Nombre: Luigi Bros
 id_juego: 0
+ID: 0
+Nombre: 1
+id_juego: 1
+ID: 0
+Nombre: 1
+id_juego: 1
+ID: 0
+Nombre: 1
+id_juego: 1

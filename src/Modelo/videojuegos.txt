@@ -1,5 +1,0 @@
-ID: 0
-Nombre: New Super Mario Bros
-Plataforma: DS
-Fecha de Lanzamiento: 12 de Mayo de 2006
-Desarrollador: Nintendo
