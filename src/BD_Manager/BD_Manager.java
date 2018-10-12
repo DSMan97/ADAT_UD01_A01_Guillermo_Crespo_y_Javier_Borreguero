@@ -98,7 +98,7 @@ public class BD_Manager implements Intercambio {
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
-		mVista.PedirDatos(ListaVideojuegos);
+		mVista.PedirDatosDB(ListaVideojuegos);
 		
 		
 		
@@ -126,7 +126,7 @@ public class BD_Manager implements Intercambio {
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
-		mVista.PedirDatoPer(ListaPersonajes);
+		mVista.PedirDatoPerDB(ListaPersonajes);
 		
 		
 		

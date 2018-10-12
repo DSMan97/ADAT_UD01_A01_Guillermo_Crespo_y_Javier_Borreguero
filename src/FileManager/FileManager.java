@@ -69,14 +69,14 @@ public class FileManager implements Intercambio {
 			while ((linea = br.readLine()) != null)
 				System.out.println(linea);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 
 		}
 		mControlador.Cargar_Inicio();
 
 		return listaPersonajes;
-		// TODO Auto-generated method stub
+	
 
 	}
 
@@ -87,7 +87,7 @@ public class FileManager implements Intercambio {
 		Controlador mControlador = new Controlador();
 
 		try {
-			mVista.PedirDatos(ListaVideojuegos);
+			mVista.PedirDatosF(ListaVideojuegos);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
 			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
 				bw.write("ID: " + entry.getValue().getID() + "\n" + "Nombre: " + entry.getValue().getNombre() + "\n"
@@ -99,7 +99,7 @@ public class FileManager implements Intercambio {
 			bw.close();
 
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 		EscribirTodosPersonajes();
@@ -113,7 +113,7 @@ public class FileManager implements Intercambio {
 		Controlador mControlador = new Controlador();
 
 		try {
-			mVista.PedirDatoPer(listaPersonajes);
+			mVista.PedirDatoPerF(listaPersonajes);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_personajes, true));
 			for (Entry<Integer, Personajes> entry : listaPersonajes.entrySet()) {
 				bw.write("ID: " + entry.getKey() + "\n" + "Nombre: " + entry.getValue().getNombre_Personaje() + "\n"
@@ -121,7 +121,7 @@ public class FileManager implements Intercambio {
 			}
 			bw.close();
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
+		
 			e2.printStackTrace();
 		}
 		mControlador.Cargar_Inicio();
@@ -135,8 +135,7 @@ public class FileManager implements Intercambio {
 
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
-			// salida = new FileOutputStream(miConfig);
-			// cargamos el archivo de propiedades
+			
 			PreparedStatement pstm;
 			String cargar = "Select * from videojuegos";
 			ResultSet rset;
@@ -164,7 +163,7 @@ public class FileManager implements Intercambio {
 			bw.close();
 			mControlador.Cargar_Inicio();
 		} catch (IOException | SQLException e1) {
-			// TODO Auto-generated catch block
+		
 			e1.printStackTrace();
 		}
 		return ListaVideojuegos;
@@ -172,14 +171,13 @@ public class FileManager implements Intercambio {
 
 	@Override
 	public HashMap<Integer, Personajes> AñadirPer() {
-		// TODO Auto-generated method stub
+		
 		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
 
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
-			// salida = new FileOutputStream(miConfig);
-			// cargamos el archivo de propiedades
+			
 			PreparedStatement pstm;
 			String cargar = "Select * from videojuegos";
 			ResultSet rset;

@@ -23,6 +23,9 @@ public class Controlador {
 	public void Leer_Fichero() {
 		mFM.LeerTodos();
 	}
+	public void Leer_FicheroPer() {
+		mFM.LeerTodosPer();
+	}
 	public void Escribir_Fichero() {
 		mFM.EscribirTodos();
 	}

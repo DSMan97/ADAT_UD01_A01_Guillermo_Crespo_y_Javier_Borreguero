@@ -49,7 +49,21 @@ public class Inicio {
 			mControlador.Escribir_Fichero();
 			break;
 		case 2:
-			mControlador.Leer_Fichero();
+			System.out.println("1: Leer Videojuegos");
+			System.out.println("2: Leer Personajes");
+			Scanner opt1 = new Scanner(System.in);
+			System.out.print("Elija una opción:  ");
+			int eleccion1 = opt1.nextInt();
+			switch (eleccion1) {
+			case 1:
+				mControlador.Leer_Fichero();
+				break;
+			case 2:
+				mControlador.Leer_FicheroPer();
+			default:
+				break;
+			}
+			
 			break;
 		case 3:
 			mControlador.BBDD2TXT();
@@ -79,7 +93,7 @@ public class Inicio {
 		}
 	}
 
-	public void PedirDatos(HashMap<Integer, Videojuego> ListaVideojuegos) {
+	public void PedirDatosF(HashMap<Integer, Videojuego> ListaVideojuegos) {
 		Controlador mControlador = new Controlador();
 		try {
 
@@ -117,8 +131,52 @@ public class Inicio {
 		}
 
 	}
+	public void PedirDatosDB(HashMap<Integer, Videojuego> ListaVideojuegos) {
+		Controlador mControlador = new Controlador();
+		Modelo mModelo = new Modelo();
+		PreparedStatement pstm;
+		String cargar = "Select * from videojuegos";
+		ResultSet rset;
+	
+		try {
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			rset = pstm.executeQuery();
+			BufferedReader br = new BufferedReader(new FileReader(archivo_videojuegos));
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("ID_Videojuego: ");
+			String idtxt = scanner.nextLine();
+			 id = Integer.parseInt(idtxt);
+			
+			while (rset.next()) {
+				if (idtxt.equals(rset.getInt(1))) {
 
-	public void PedirDatoPer(HashMap<Integer, Personajes> listaPersonajes) {
+					System.err.print("Este ID ya existe, por favor introduzca otro\n");
+				
+					mControlador.Cargar_Inicio();
+				}
+				
+				
+			}
+			System.out.println("Nombre del Videojuego: ");
+			String nametxt = scanner.nextLine();
+			System.out.println("Plataforma (DS, GBA, N64): ");
+			String plataformatxt = scanner.nextLine();
+			System.out.println("Fecha de Lanzamiento: ");
+			String fechatxt = scanner.nextLine();
+			System.out.println("Desarrollador: ");
+			String desarrolladortxt = scanner.nextLine();
+			Videojuego mVideojuego = new Videojuego(nametxt, fechatxt, desarrolladortxt, plataformatxt);
+
+			ListaVideojuegos.put(id, mVideojuego);
+
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void PedirDatoPerF(HashMap<Integer, Personajes> listaPersonajes) {
 		// TODO Auto-generated method stub
 		Controlador mControlador = new Controlador();
 
@@ -147,6 +205,45 @@ public class Inicio {
 			listaPersonajes.put(idper, mPersonaje);
 			idper++;
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+	}
+	public void PedirDatoPerDB(HashMap<Integer, Personajes> listaPersonajes) {
+		// TODO Auto-generated method stub
+		Modelo mModelo = new Modelo();
+		Controlador mControlador = new Controlador();
+		PreparedStatement pstm;
+		String cargar = "Select * from personajes";
+		ResultSet rset;
+		try {
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			rset = pstm.executeQuery();
+			BufferedReader br = new BufferedReader(new FileReader(archivo_personajes));
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("ID_Personaje: ");
+			String idtxt = scanner.nextLine();
+			int idper = Integer.parseInt(idtxt);
+		
+			while (rset.next()) {
+				if (idtxt.equals(rset.getInt(1))) {
+					System.err.println("Este ID ya existe, por favor introduzca otro\n");
+					
+				mControlador.Cargar_Inicio();
+				}
+				
+				
+			}
+			System.out.println("Nombre del Personaje: ");
+			String namePtxt = scanner.nextLine();
+
+			idper = 0;
+			Personajes mPersonaje = new Personajes(namePtxt, id);
+
+			listaPersonajes.put(idper, mPersonaje);
+			idper++;
+		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
