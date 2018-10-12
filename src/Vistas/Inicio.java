@@ -66,8 +66,24 @@ public class Inicio {
 			
 			break;
 		case 3:
-			mControlador.BBDD2TXT();
+			System.out.println("1: Leer Videojuegos");
+			System.out.println("2: Leer Personajes");
+			Scanner opt2 = new Scanner(System.in);
+			System.out.print("Elija una opción:  ");
+			int eleccion2 = opt.nextInt();
+			switch (eleccion2) {
+			case 1:
+				mControlador.Leer_Fichero();
+				mControlador.BBDD2TXT();
+				break;
+			case 2:
+				mControlador.Leer_FicheroPer();
+			default:
+				break;
+			
+			}
 			break;
+			
 		case 4:
 			mControlador.TXT2BBDD();
 			break;
@@ -199,11 +215,11 @@ public class Inicio {
 			System.out.println("Nombre del Personaje: ");
 			String namePtxt = scanner.nextLine();
 
-			idper = 0;
+			
 			Personajes mPersonaje = new Personajes(namePtxt, id);
 
 			listaPersonajes.put(idper, mPersonaje);
-			idper++;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

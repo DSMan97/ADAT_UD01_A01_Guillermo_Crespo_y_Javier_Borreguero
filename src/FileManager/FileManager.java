@@ -90,7 +90,7 @@ public class FileManager implements Intercambio {
 			mVista.PedirDatosF(ListaVideojuegos);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
 			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
-				bw.write("ID: " + entry.getValue().getID() + "\n" + "Nombre: " + entry.getValue().getNombre() + "\n"
+				bw.write("ID: " + entry.getKey() + "\n" + "Nombre: " + entry.getValue().getNombre() + "\n"
 						+ "Plataforma: " + entry.getValue().getPlataforma() + "\n" + "Fecha de Lanzamiento: "
 						+ entry.getValue().getFecha_Lanzamiento() + "\n" + "Desarrollador: "
 						+ entry.getValue().getDesarrollador() + "\n");
