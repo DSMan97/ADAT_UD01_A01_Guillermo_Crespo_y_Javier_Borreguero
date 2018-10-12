@@ -70,12 +70,12 @@ public class Modelo {
 	private void getBBDDini() {
 		Properties propiedades = new Properties();
 		InputStream entrada = null;
-		OutputStream salida = null;
+	
 		try {
-			File miConfig = new File("src/Modelo/bbdd_conf.ini");
+			
+		File miConfig = new File("src/Modelo/bbdd_conf.ini");
 			if (miConfig.exists()) {
 				entrada = new FileInputStream(miConfig);
-				salida = new FileOutputStream(miConfig);
 				// cargamos el archivo de propiedades
 				propiedades.load(entrada);
 

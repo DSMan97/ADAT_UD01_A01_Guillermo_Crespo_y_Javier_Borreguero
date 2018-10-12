@@ -115,8 +115,9 @@ public class BD_Manager implements Intercambio {
 			e.printStackTrace();
 		}
 		
-	
+		AñadirPer();
 		return ListaVideojuegos;
+		
 	}
 
 	
