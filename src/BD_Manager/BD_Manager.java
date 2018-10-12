@@ -108,6 +108,7 @@ public class BD_Manager implements Intercambio {
 					+ "'" + entry.getValue().getPlataforma() + "'" + ")";
 			pstm = mModelo.conexion.prepareStatement(cargar);
 			int rset = pstm.executeUpdate();
+			AñadirPer();
 		}
 			mControlador.Cargar_Inicio();
 		} catch (SQLException e) {
@@ -115,7 +116,7 @@ public class BD_Manager implements Intercambio {
 			e.printStackTrace();
 		}
 		
-		AñadirPer();
+		
 		return ListaVideojuegos;
 		
 	}

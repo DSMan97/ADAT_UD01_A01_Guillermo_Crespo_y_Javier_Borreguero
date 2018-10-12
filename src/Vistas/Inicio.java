@@ -164,9 +164,9 @@ public class Inicio {
 			 id = Integer.parseInt(idtxt);
 			
 			while (rset.next()) {
-				if (idtxt.equals(rset.getInt(1))) {
+				if (id==(rset.getInt(1))) {
 
-					System.err.print("Este ID ya existe, por favor introduzca otro\n");
+					System.err.println("Este ID ya existe, por favor introduzca otro\n");
 				
 					mControlador.Cargar_Inicio();
 				}
@@ -243,7 +243,7 @@ public class Inicio {
 			int idper = Integer.parseInt(idtxt);
 		
 			while (rset.next()) {
-				if (idtxt.equals(rset.getInt(1))) {
+				if (idper==(rset.getInt(1))) {
 					System.err.println("Este ID ya existe, por favor introduzca otro\n");
 					
 				mControlador.Cargar_Inicio();
@@ -254,11 +254,11 @@ public class Inicio {
 			System.out.println("Nombre del Personaje: ");
 			String namePtxt = scanner.nextLine();
 
-			idper = 0;
+		
 			Personajes mPersonaje = new Personajes(namePtxt, id);
 
 			listaPersonajes.put(idper, mPersonaje);
-			idper++;
+			
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
