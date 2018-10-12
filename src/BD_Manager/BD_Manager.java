@@ -98,16 +98,13 @@ public class BD_Manager implements Intercambio {
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
-		Scanner id = new Scanner(System.in);
-		System.out.println("ID:");
-		String idtxt = id.nextLine();
 		mVista.PedirDatos(ListaVideojuegos);
 		
 		
 		
 		for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
 			String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
-					+idtxt+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
+					+entry.getKey()+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
 					+ "'" + entry.getValue().getPlataforma() + "'" + ")";
 			pstm = mModelo.conexion.prepareStatement(cargar);
 			int rset = pstm.executeUpdate();
@@ -129,17 +126,13 @@ public class BD_Manager implements Intercambio {
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
-		Scanner id = new Scanner(System.in);
-		System.out.println("ID:");
-		String idtxt = id.nextLine();
 		mVista.PedirDatoPer(ListaPersonajes);
 		
 		
 		
-		for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
-			String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
-					+idtxt+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
-					+ "'" + entry.getValue().getPlataforma() + "'" + ")";
+		for (Entry<Integer, Personajes> entry : ListaPersonajes.entrySet()) {
+			String cargar = "INSERT INTO `personajes`(`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES ("
+					+entry.getKey()+ "," + "'" + entry.getValue().getNombre_Personaje() + "'" + "," + "'" + entry.getValue().getID_Juego() + "'" + ")";
 			pstm = mModelo.conexion.prepareStatement(cargar);
 			int rset = pstm.executeUpdate();
 		}
@@ -150,7 +143,7 @@ public class BD_Manager implements Intercambio {
 		}
 		
 	
-		return AñadirPer();
+		return ListaPersonajes;
 	}
 		
 		

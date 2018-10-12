@@ -25,54 +25,78 @@ import Modelo.Modelo;
 import Videojuegos.Personajes;
 import Videojuegos.Videojuego;
 import Vistas.Inicio;
+
 public class FileManager implements Intercambio {
 	private String archivo_videojuegos = "src/Modelo/videojuegos.txt";
 	private String archivo_personajes = "src/Modelo/personajes.txt";
-	HashMap <Integer, Videojuego> ListaVideojuegos = new HashMap <Integer, Videojuego>();
-	
-	Inicio	mVista = new Inicio();
-	HashMap<Integer, Personajes> listaPersonajes  = new HashMap <Integer, Personajes>(); 
+	HashMap<Integer, Videojuego> ListaVideojuegos = new HashMap<Integer, Videojuego>();
+	HashMap<Integer, Personajes> listaPersonajes = new HashMap<Integer, Personajes>();
+	Inicio mVista = new Inicio();
+
 	@Override
 	public HashMap<Integer, Videojuego> LeerTodos() {
-	      FileReader fr = null;
-	      BufferedReader br = null;
-	      Controlador mControlador = new Controlador();
+		FileReader fr = null;
+		BufferedReader br = null;
+		Controlador mControlador = new Controlador();
 		try {
-			fr = new FileReader (archivo_videojuegos);
-			 br = new BufferedReader(fr);
-				
-				String linea;
-			     while((linea=br.readLine())!=null)
-			        System.out.println(linea);
+			fr = new FileReader(archivo_videojuegos);
+			br = new BufferedReader(fr);
+
+			String linea;
+			while ((linea = br.readLine()) != null)
+				System.out.println(linea);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		
+
 		}
 		mControlador.Cargar_Inicio();
-		
-	    return ListaVideojuegos;
+
+		return ListaVideojuegos;
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public HashMap<Integer, Personajes> LeerTodosPer() {
+		FileReader fr = null;
+		BufferedReader br = null;
+		Controlador mControlador = new Controlador();
+		try {
+			fr = new FileReader(archivo_personajes);
+			br = new BufferedReader(fr);
+
+			String linea;
+			while ((linea = br.readLine()) != null)
+				System.out.println(linea);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+		mControlador.Cargar_Inicio();
+
+		return listaPersonajes;
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
-	public HashMap<Integer, Videojuego> EscribirTodos()  {
+	public HashMap<Integer, Videojuego> EscribirTodos() {
 		Properties propiedades = new Properties();
 		InputStream entrada = null;
 		Controlador mControlador = new Controlador();
-		
+
 		try {
-			   mVista.PedirDatos(ListaVideojuegos);
-				BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
-				for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
-					bw.write("ID: "+entry.getValue().getID()+"\n"+"Nombre: "+entry.getValue().getNombre()+"\n"+"Plataforma: "+entry.getValue().getPlataforma()+"\n"+"Fecha de Lanzamiento: "+entry.getValue().getFecha_Lanzamiento()+"\n"+"Desarrollador: "+entry.getValue().getDesarrollador()+"\n");
-				}
-				 
-				 
-			 bw.close();
-			 
+			mVista.PedirDatos(ListaVideojuegos);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
+			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
+				bw.write("ID: " + entry.getValue().getID() + "\n" + "Nombre: " + entry.getValue().getNombre() + "\n"
+						+ "Plataforma: " + entry.getValue().getPlataforma() + "\n" + "Fecha de Lanzamiento: "
+						+ entry.getValue().getFecha_Lanzamiento() + "\n" + "Desarrollador: "
+						+ entry.getValue().getDesarrollador() + "\n");
+			}
+
+			bw.close();
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -81,21 +105,21 @@ public class FileManager implements Intercambio {
 		EscribirTodosPersonajes();
 		return ListaVideojuegos;
 
-		
 	}
-	
-	public HashMap<Integer, Personajes> EscribirTodosPersonajes()  {
+
+	public HashMap<Integer, Personajes> EscribirTodosPersonajes() {
 		Properties propiedades = new Properties();
 		InputStream entrada = null;
 		Controlador mControlador = new Controlador();
-		
+
 		try {
-	 mVista.PedirDatoPer(listaPersonajes);
-	 BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_personajes, true));
-	 for (Entry<Integer, Personajes> entry : listaPersonajes.entrySet()) {
-			bw.write("ID: "+entry.getKey()+"\n"+"Nombre: "+entry.getValue().getNombre_Personaje()+"\n"+"id_juego: "+entry.getValue().getID_Juego()+"\n");
-		}
-	 bw.close();
+			mVista.PedirDatoPer(listaPersonajes);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_personajes, true));
+			for (Entry<Integer, Personajes> entry : listaPersonajes.entrySet()) {
+				bw.write("ID: " + entry.getKey() + "\n" + "Nombre: " + entry.getValue().getNombre_Personaje() + "\n"
+						+ "id_juego: " + entry.getValue().getID_Juego() + "\n");
+			}
+			bw.close();
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -103,13 +127,12 @@ public class FileManager implements Intercambio {
 		mControlador.Cargar_Inicio();
 		return listaPersonajes;
 	}
-	
-	
+
 	@Override
 	public HashMap<Integer, Videojuego> Añadir() {
-		Modelo	mModelo = new Modelo();
+		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
-		
+
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
 			// salida = new FileOutputStream(miConfig);
@@ -117,41 +140,72 @@ public class FileManager implements Intercambio {
 			PreparedStatement pstm;
 			String cargar = "Select * from videojuegos";
 			ResultSet rset;
-				pstm = mModelo.conexion.prepareStatement(cargar);
-				rset = pstm.executeQuery();
-				while (rset.next()) {
-				 int id1= rset.getInt(1);
-					String Nombre = rset.getString("Nombre");
-					String Fecha = rset.getString("Fecha_Lanzamiento");
-					String Desarrollador = rset.getString("Desarrollador");
-					String Plataforma = rset.getString("Plataforma");
-					Videojuego mVideojuego = new Videojuego(Nombre, Fecha, Desarrollador, Plataforma);
-					
-					
-					ListaVideojuegos.put(id1, mVideojuego);
-					
-				}
-				
-				for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
-					
-					bw.write("ID: "+ entry.getKey() +"\n"+"Nombre: "+entry.getValue().getNombre()+"\n"+"Fecha de Lanzamiento: "+entry.getValue().getFecha_Lanzamiento()+"\n"+"Desarrollador: "+entry.getValue().getDesarrollador()+"\n"+"Plataforma: "+entry.getValue().getPlataforma()+"\n");
-				}
-				bw.close();
-				mControlador.Cargar_Inicio();
-			} catch (IOException|SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			rset = pstm.executeQuery();
+			while (rset.next()) {
+				int id1 = rset.getInt(1);
+				String Nombre = rset.getString("Nombre");
+				String Fecha = rset.getString("Fecha_Lanzamiento");
+				String Desarrollador = rset.getString("Desarrollador");
+				String Plataforma = rset.getString("Plataforma");
+				Videojuego mVideojuego = new Videojuego(Nombre, Fecha, Desarrollador, Plataforma);
+
+				ListaVideojuegos.put(id1, mVideojuego);
+
 			}
+
+			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
+
+				bw.write("ID: " + entry.getKey() + "\n" + "Nombre: " + entry.getValue().getNombre() + "\n"
+						+ "Fecha de Lanzamiento: " + entry.getValue().getFecha_Lanzamiento() + "\n" + "Desarrollador: "
+						+ entry.getValue().getDesarrollador() + "\n" + "Plataforma: " + entry.getValue().getPlataforma()
+						+ "\n");
+			}
+			bw.close();
+			mControlador.Cargar_Inicio();
+		} catch (IOException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		return ListaVideojuegos;
 	}
-
 
 	@Override
 	public HashMap<Integer, Personajes> AñadirPer() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-		
+		Modelo mModelo = new Modelo();
+		Controlador mControlador = new Controlador();
+
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo_videojuegos, true));
+			// salida = new FileOutputStream(miConfig);
+			// cargamos el archivo de propiedades
+			PreparedStatement pstm;
+			String cargar = "Select * from videojuegos";
+			ResultSet rset;
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			rset = pstm.executeQuery();
+			while (rset.next()) {
+				int id1 = rset.getInt(1);
+				String Nombre = rset.getString("Nombre_Personaje");
+				int id_juego = rset.getInt("ID_Juego");
+				Personajes mPersonaje = new Personajes(Nombre,id_juego);
+
+				listaPersonajes.put(id1, mPersonaje);
+
+			}
+
+			for (Entry<Integer, Personajes> entry : listaPersonajes.entrySet()) {
+
+				bw.write("ID: " + entry.getKey() + "\n" + "Nombre: " + entry.getValue().getNombre_Personaje() + "\n" +"ID_Juego: "+ entry.getValue().getID_Juego()+ "\n");
+			}
+			bw.close();
+			mControlador.Cargar_Inicio();
+		} catch (IOException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return listaPersonajes;
 	}
 
-
+}

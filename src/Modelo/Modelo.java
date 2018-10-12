@@ -53,7 +53,7 @@ public class Modelo {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conexion = DriverManager.getConnection(url, login, pass);
 			if (conexion != null) {
-				System.out.println("Conexion Establecida");
+				
 
 				// stmt.close();
 				// conexion.close();
@@ -78,14 +78,6 @@ public class Modelo {
 				salida = new FileOutputStream(miConfig);
 				// cargamos el archivo de propiedades
 				propiedades.load(entrada);
-				if (miConfig.length() == 0) {
-					propiedades.setProperty("DataBase", "videojuegos");
-					propiedades.setProperty("usuario", "root");
-					propiedades.setProperty("contrasena", "");
-					propiedades.store(salida, "Archivo de Configuración de la Base de Datos");
-				} else {
-					System.out.println(miConfig.lastModified() + "\n" + miConfig.length());
-				}
 
 				// obtenemos las propiedades y las imprimimos
 				bd = propiedades.getProperty("DataBase");

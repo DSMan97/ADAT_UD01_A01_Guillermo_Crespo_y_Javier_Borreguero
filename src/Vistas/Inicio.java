@@ -27,11 +27,12 @@ import Videojuegos.Personajes;
 import Videojuegos.Videojuego;
 
 public class Inicio {
-int id = 0;
-private String archivo_videojuegos = "src/Modelo/videojuegos.txt";
+	int id = 0;
+	private String archivo_videojuegos = "src/Modelo/videojuegos.txt";
+	private String archivo_personajes = "src/Modelo/personajes.txt";
 	public void CargarMenu() throws SQLException, IOException {
 		Controlador mControlador = new Controlador();
-		
+
 		// TODO Auto-generated method stub
 		System.out.println("1: Crear fichero");
 		System.out.println("2: Leer fichero");
@@ -45,8 +46,7 @@ private String archivo_videojuegos = "src/Modelo/videojuegos.txt";
 		int eleccion = opt.nextInt();
 		switch (eleccion) {
 		case 1:
-				mControlador.Escribir_Fichero();
-
+			mControlador.Escribir_Fichero();
 			break;
 		case 2:
 			mControlador.Leer_Fichero();
@@ -81,53 +81,76 @@ private String archivo_videojuegos = "src/Modelo/videojuegos.txt";
 
 	public void PedirDatos(HashMap<Integer, Videojuego> ListaVideojuegos) {
 		Controlador mControlador = new Controlador();
-		 try {
-			BufferedReader br = new BufferedReader( new FileReader (archivo_videojuegos));
+		try {
+
+			BufferedReader br = new BufferedReader(new FileReader(archivo_videojuegos));
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("ID_Videojuego: ");
 			String idtxt = scanner.nextLine();
-			 id=Integer.parseInt(idtxt);
-			 String linea;
-			while ((linea=br.readLine())!=null) {
-					if(idtxt.equals(linea.substring(4))) {
-						System.err.println("Este ID ya existe, por favor introduzca otro");
-					mControlador.Cargar_Inicio();
-					}
-			}
-					System.out.println("Nombre del Videojuego: ");
-					String nametxt = scanner.nextLine();
-					System.out.println("Plataforma (DS, GBA, N64): ");
-					String plataformatxt = scanner.nextLine();
-					System.out.println("Fecha de Lanzamiento: ");
-					String fechatxt = scanner.nextLine();
-					System.out.println("Desarrollador: ");
-					String desarrolladortxt = scanner.nextLine();
-					Videojuego mVideojuego = new Videojuego(nametxt, fechatxt, desarrolladortxt, plataformatxt);
+			 id = Integer.parseInt(idtxt);
+			String linea;
+			while ((linea = br.readLine()) != null) {
+				if (idtxt.equals(linea.substring(4))) {
 
-					
-					ListaVideojuegos.put(id, mVideojuego);
-		
+					System.err.print("Este ID ya existe, por favor introduzca otro\n");
+				
+					mControlador.Cargar_Inicio();
+				}
+				
+				
+			}
+			System.out.println("Nombre del Videojuego: ");
+			String nametxt = scanner.nextLine();
+			System.out.println("Plataforma (DS, GBA, N64): ");
+			String plataformatxt = scanner.nextLine();
+			System.out.println("Fecha de Lanzamiento: ");
+			String fechatxt = scanner.nextLine();
+			System.out.println("Desarrollador: ");
+			String desarrolladortxt = scanner.nextLine();
+			Videojuego mVideojuego = new Videojuego(nametxt, fechatxt, desarrolladortxt, plataformatxt);
+
+			ListaVideojuegos.put(id, mVideojuego);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 
 	public void PedirDatoPer(HashMap<Integer, Personajes> listaPersonajes) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Nombre del Personaje: ");
-		String namePtxt = scanner.nextLine();
-	
-		int idtxt=0;
-		Personajes mPersonaje = new Personajes(namePtxt, id);
+		Controlador mControlador = new Controlador();
 
-		listaPersonajes.put(idtxt, mPersonaje);
-		idtxt++;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(archivo_personajes));
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("ID_Personaje: ");
+			String idtxt = scanner.nextLine();
+			int idper = Integer.parseInt(idtxt);
+			String linea;
+			while ((linea = br.readLine()) != null) {
+				if (idtxt.equals(linea.substring(4))) {
+					System.err.println("Este ID ya existe, por favor introduzca otro\n");
+					
+				mControlador.Cargar_Inicio();
+				}
+				
+				
+			}
+			System.out.println("Nombre del Personaje: ");
+			String namePtxt = scanner.nextLine();
+
+			idper = 0;
+			Personajes mPersonaje = new Personajes(namePtxt, id);
+
+			listaPersonajes.put(idper, mPersonaje);
+			idper++;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
 	}
 
 }
