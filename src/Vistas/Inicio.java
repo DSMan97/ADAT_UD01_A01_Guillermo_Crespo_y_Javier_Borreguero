@@ -215,11 +215,11 @@ public class Inicio {
 			System.out.println("Nombre del Personaje: ");
 			String namePtxt = scanner.nextLine();
 
-			idper = 0;
+			
 			Personajes mPersonaje = new Personajes(namePtxt, id);
 
 			listaPersonajes.put(idper, mPersonaje);
-			idper++;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
