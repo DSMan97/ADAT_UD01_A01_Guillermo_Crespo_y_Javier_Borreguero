@@ -25,16 +25,17 @@ import Vistas.Inicio;
 import Controlador.Controlador;
 
 public class BD_Manager implements Intercambio {
-	private String archivo = "src/Modelo/fichero.txt";
+	private String archivo_videojuegos = "src/Modelo/videojuegos.txt";
+	private String archivo_personajes = "src/Modelo/personajes.txt";
 	HashMap<Integer, Videojuego> ListaVideojuegos = new HashMap<Integer, Videojuego>();
 	HashMap<Integer, Personajes> ListaPersonajes = new HashMap<Integer, Personajes>();
-	Modelo mModelo = new Modelo();
+	
 	Inicio mVista = new Inicio();
 
 
 	@Override
 	public HashMap<Integer, Videojuego> EscribirTodos() {
-
+		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
 		// cargamos el archivo de propiedades
 		  FileReader fr = null;
@@ -42,27 +43,35 @@ public class BD_Manager implements Intercambio {
 		try {
 			
 			Properties propiedades = new Properties();
-			InputStream entrada = new FileInputStream(archivo);
+			InputStream entrada = new FileInputStream(archivo_videojuegos);
 			
-			fr = new FileReader (archivo);
+			fr = new FileReader (archivo_videojuegos);
 			 br = new BufferedReader(fr);
 				
 			     
 			propiedades.load(entrada);
-			
-			String idtxt = br.readLine().substring(4);
+			String linea;
+			while ((linea=br.readLine())!=null) {
+			String idtxt = linea.substring(4);
+			System.out.println(idtxt);
 			int id = Integer.parseInt(idtxt);
-			String nametxt = br.readLine().substring(8);
-			String fechatxt =  br.readLine().substring(22);
-			String desarrolladortxt =   br.readLine().substring(15);
-			String plataformatxt =  br.readLine().substring(12);
+			String nametxt = linea.substring(8);
+			String fechatxt =  linea.substring(22);
+			String desarrolladortxt =   linea.substring(15);
+			String plataformatxt =  linea.substring(12);
+				
 			Videojuego mVideojuego = new Videojuego(nametxt, fechatxt, desarrolladortxt, plataformatxt);
 			ListaVideojuegos.put(id, mVideojuego);
+				}
 			PreparedStatement pstm;
+			String deltabla1 = "DELETE FROM `personajes`";
+			String deltabla2 = "DELETE FROM `videojuegos`";
 			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
 				String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
-						+entry.getKey()+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
+						+ entry.getKey()+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
 						+ "'" + entry.getValue().getPlataforma() + "'" + ")";
+				pstm = mModelo.conexion.prepareStatement(deltabla1);
+				pstm = mModelo.conexion.prepareStatement(deltabla2);
 				pstm = mModelo.conexion.prepareStatement(cargar);
 				int rset = pstm.executeUpdate();
 			
@@ -85,6 +94,7 @@ public class BD_Manager implements Intercambio {
 
 	@Override
 	public HashMap<Integer, Videojuego> Añadir() {
+		Modelo mModelo = new Modelo();
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
@@ -115,6 +125,7 @@ public class BD_Manager implements Intercambio {
 	
 	@Override
 	public HashMap<Integer, Personajes> AñadirPer() {
+		Modelo mModelo = new Modelo();
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
@@ -151,6 +162,7 @@ public class BD_Manager implements Intercambio {
 
 	@Override
 	public HashMap<Integer, Videojuego> LeerTodos() {
+		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
 		// TODO Auto-generated method stub
 		PreparedStatement pstm;

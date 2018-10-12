@@ -26,6 +26,7 @@ public class Controlador {
 	public void Escribir_Fichero() {
 		mFM.EscribirTodos();
 	}
+	
 	public void TXT2BBDD() {
 		mBD.EscribirTodos();
 	}

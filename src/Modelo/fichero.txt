@@ -1,5 +1,0 @@
-ID: 1
-Nombre: Super
-Fecha de Lanzamiento: ayer
-Desarrollador: Nintendo
-Plataforma: DS

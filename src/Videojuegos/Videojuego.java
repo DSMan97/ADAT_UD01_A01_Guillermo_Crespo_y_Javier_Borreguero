@@ -2,13 +2,14 @@ package Videojuegos;
 
 public class Videojuego {
 
+	private int id;
 	private String Nombre;
 	private String Fecha_Lanzamiento;
 	private String Desarrollador;
 	private String Plataforma;
 
 	public Videojuego( String Nombre, String Fecha, String Desarrollador, String Plataforma) {
-		
+		this.id = id;
 		this.Nombre = Nombre;
 		this.Fecha_Lanzamiento = Fecha;
 		this.Desarrollador=Desarrollador;
@@ -16,8 +17,15 @@ public class Videojuego {
 		
 		
 	}
-//Personajes
 
+	public int getID() {
+		return id;
+	}
+
+
+	public void setID(int ID) {
+		id = ID;
+	}
 
 	public String getNombre() {
 		return Nombre;

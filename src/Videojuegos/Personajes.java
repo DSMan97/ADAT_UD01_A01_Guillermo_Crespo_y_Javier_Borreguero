@@ -2,25 +2,20 @@ package Videojuegos;
 
 public class Personajes {
 
-	private int ID;
+
 	private String Nombre_Personaje;
 	private int ID_Juego;
 	
 	
 	
-	public Personajes(int id, String nombre_Personaje, int id_Juego) {
-		this.ID = id;
+	public Personajes( String nombre_Personaje, int id_Juego) {
+		
 		this.Nombre_Personaje = nombre_Personaje;
 		this.ID_Juego = id_Juego;
 	}
 	
 	
-	public int getID() {
-		return ID;
-	}
-	public void setID(int id) {
-		ID = id;
-	}
+	
 	public String getNombre_Personaje() {
 		return Nombre_Personaje;
 	}
