@@ -61,9 +61,16 @@ public class BD_Manager implements Intercambio {
 			ListaVideojuegos.put(id, mVideojuego);
 				}
 			PreparedStatement pstm;
-			String deltabla1 = "DELETE FROM `videojuegos`";
-			pstm = mModelo.conexion.prepareStatement(deltabla1);
-			int rset = pstm.executeUpdate();
+		
+			
+			 
+				String delrel = "call eliminar_key()";
+				pstm = mModelo.conexion.prepareStatement(delrel);
+				int  rset = pstm.executeUpdate();
+				 String deltabla1 = "DELETE FROM `videojuegos`";
+					pstm = mModelo.conexion.prepareStatement(deltabla1);
+					rset = pstm.executeUpdate();
+					
 			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
 				String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
 						+ entry.getKey()+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
@@ -72,8 +79,14 @@ public class BD_Manager implements Intercambio {
 				pstm = mModelo.conexion.prepareStatement(cargar);
 				rset = pstm.executeUpdate();
 			}
+		
+				
+				br.close();
+				
+				
+			
 			EscribirTodosPer();
-			br.close();
+			
 			 
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,38 +108,44 @@ public class BD_Manager implements Intercambio {
 			
 			
 			
-			BufferedReader br = new BufferedReader(new FileReader (archivo_personajes));
-				
-			     
-		
-			String linea;
-			while ((linea=br.readLine())!=null) {
-			String idtxt = linea.substring(4);
+			
+			BufferedReader brf = new BufferedReader(new FileReader (archivo_personajes));
+			
+			
+			
+			String linea2;
+			while ((linea2=brf.readLine())!=null) {
+			String idtxt = linea2.substring(4);
 			int id = Integer.parseInt(idtxt);
-			String nombre_Personaje = br.readLine().substring(8);
-			String id_Juegotxt =  br.readLine().substring(10);
+			String nombre_Personaje = brf.readLine().substring(8);
+			String id_Juegotxt =  brf.readLine().substring(10);
 			int id_Juego = Integer.parseInt(id_Juegotxt);
 				
 			Personajes mPersonaje = new Personajes(nombre_Personaje, id_Juego);
 			ListaPersonajes.put(id, mPersonaje);
 				}
-			PreparedStatement pstm;
-			String deltabla1 = "DELETE FROM `personajes`;";
-			pstm = mModelo.conexion.prepareStatement(deltabla1);
-			 int rset = pstm.executeUpdate();
+			PreparedStatement pstm1;
 			
 			
 			
-			for (Entry<Integer, Personajes> entry : ListaPersonajes.entrySet()) {
-				String cargar = "INSERT INTO `personajes`(`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES ("
-						+entry.getKey()+ "," + "'" + entry.getValue().getNombre_Personaje() + "'" + "," + "'" + entry.getValue().getID_Juego() + "'" + ")";
+			String deltabla2 = "DELETE FROM `personajes`;";
+			pstm1 = mModelo.conexion.prepareStatement(deltabla2);
+			int rset1 = pstm1.executeUpdate();
 			
-				pstm = mModelo.conexion.prepareStatement(cargar);
-				rset = pstm.executeUpdate();
-			}
+			 
+			for (Entry<Integer, Personajes> entry1 : ListaPersonajes.entrySet()) {
+				String cargar2 = "INSERT INTO `personajes`(`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES ("
+						+entry1.getKey()+ "," + "'" + entry1.getValue().getNombre_Personaje() + "'" + "," + "'" + entry1.getValue().getID_Juego() + "'" + ")";
+			
+				pstm1 = mModelo.conexion.prepareStatement(cargar2);
+			    rset1 = pstm1.executeUpdate();
 				
+			}
+			String  addrel1 = "call add_key()";
+			pstm1 = mModelo.conexion.prepareStatement(addrel1);
+			 rset1 = pstm1.executeUpdate();
 	
-			 br.close();
+			 brf.close();
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
