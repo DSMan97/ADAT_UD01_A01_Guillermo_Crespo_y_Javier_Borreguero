@@ -1,5 +1,5 @@
 ID: 0
 Nombre: New Super Mario
-Fecha de Lanzamiento: 12/06/2006
-Desarrollador: Nintendo
 Plataforma: DS
+Fecha de Lanzamiento: 12 de Mayo de 2005
+Desarrollador: Nintendo

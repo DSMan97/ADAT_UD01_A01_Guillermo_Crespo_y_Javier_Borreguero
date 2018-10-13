@@ -56,6 +56,7 @@ public class FileManager implements Intercambio {
 		// TODO Auto-generated method stub
 
 	}
+	
 
 	public HashMap<Integer, Personajes> LeerTodosPer() {
 		FileReader fr = null;
@@ -97,19 +98,19 @@ public class FileManager implements Intercambio {
 			}
 
 			bw.close();
+			mControlador.Cargar_Inicio();
 
 		} catch (IOException e1) {
 			
 			e1.printStackTrace();
 		}
-		EscribirTodosPersonajes();
+		
 		return ListaVideojuegos;
 
 	}
 
-	public HashMap<Integer, Personajes> EscribirTodosPersonajes() {
-		Properties propiedades = new Properties();
-		InputStream entrada = null;
+	public HashMap<Integer, Personajes> EscribirTodosPer() {
+		
 		Controlador mControlador = new Controlador();
 
 		try {

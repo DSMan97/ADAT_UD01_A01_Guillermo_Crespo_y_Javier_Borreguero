@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.Map.Entry;
+
+
 import Modelo.Modelo;
 import Videojuegos.Personajes;
 import Videojuegos.Videojuego;
@@ -32,30 +34,26 @@ public class BD_Manager implements Intercambio {
 	
 	Inicio mVista = new Inicio();
 
-
 	@Override
 	public HashMap<Integer, Videojuego> EscribirTodos() {
 		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
-		// cargamos el archivo de propiedades
-		  FileReader fr = null;
-	      BufferedReader br = null;
+	
+		  
+	       
 		try {
 			
-			Properties propiedades = new Properties();
-			InputStream entrada = new FileInputStream(archivo_videojuegos);
 			
-			fr = new FileReader (archivo_videojuegos);
-			 br = new BufferedReader(fr);
+			
+			BufferedReader br = new BufferedReader(new FileReader (archivo_videojuegos));
 				
 			     
-			propiedades.load(entrada);
 			String linea;
 			while ((linea=br.readLine())!=null) {
 			String idtxt = linea.substring(4);
-			System.out.println(idtxt);
 			int id = Integer.parseInt(idtxt);
 			String nametxt = linea.substring(8);
+			System.out.println(nametxt);
 			String fechatxt =  linea.substring(22);
 			String desarrolladortxt =   linea.substring(15);
 			String plataformatxt =  linea.substring(12);
@@ -74,7 +72,7 @@ public class BD_Manager implements Intercambio {
 				pstm = mModelo.conexion.prepareStatement(deltabla2);
 				pstm = mModelo.conexion.prepareStatement(cargar);
 				int rset = pstm.executeUpdate();
-			
+			EscribirTodosPer();
 			}
 			
 			     
@@ -91,6 +89,60 @@ public class BD_Manager implements Intercambio {
 
 	}
 	
+	@Override
+	public HashMap<Integer, Personajes> EscribirTodosPer() {
+		Modelo mModelo = new Modelo();
+		Controlador mControlador = new Controlador();
+		  FileReader fr = null;
+	      BufferedReader br = null;
+		try {
+			
+			
+			
+			
+			fr = new FileReader (archivo_personajes);
+			 br = new BufferedReader(fr);
+				
+			     
+		
+			String linea;
+			while ((linea=br.readLine())!=null) {
+			String idtxt = linea.substring(4);
+			int id = Integer.parseInt(idtxt);
+			String nombre_Personaje = linea.substring(8);
+			String id_Juegotxt =  linea.substring(10);
+			int id_Juego = Integer.parseInt(id_Juegotxt);
+				
+			Personajes mPersonaje = new Personajes(nombre_Personaje, id_Juego);
+			ListaPersonajes.put(id, mPersonaje);
+				}
+			PreparedStatement pstm;
+			String deltabla1 = "DELETE FROM `personajes`";
+			
+			for (Entry<Integer, Personajes> entry : ListaPersonajes.entrySet()) {
+				String cargar = "INSERT INTO `personajes`(`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES ("
+						+entry.getKey()+ "," + "'" + entry.getValue().getNombre_Personaje() + "'" + "," + "'" + entry.getValue().getID_Juego() + "'" + ")";
+				
+				pstm = mModelo.conexion.prepareStatement(deltabla1);
+				pstm = mModelo.conexion.prepareStatement(cargar);
+				int rset = pstm.executeUpdate();
+			}
+				
+	
+			 br.close();
+		} catch (IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mControlador.Cargar_Inicio();
+
+		return ListaPersonajes;
+
+	}
+		
+		
+	
+	
 
 	@Override
 	public HashMap<Integer, Videojuego> Añadir() {
@@ -98,8 +150,8 @@ public class BD_Manager implements Intercambio {
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
-		mVista.PedirDatosDB(ListaVideojuegos);
 		
+		mVista.PedirDatosDB(ListaVideojuegos);
 		
 		
 		for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
@@ -108,7 +160,7 @@ public class BD_Manager implements Intercambio {
 					+ "'" + entry.getValue().getPlataforma() + "'" + ")";
 			pstm = mModelo.conexion.prepareStatement(cargar);
 			int rset = pstm.executeUpdate();
-			AñadirPer();
+			
 		}
 			mControlador.Cargar_Inicio();
 		} catch (SQLException e) {
@@ -121,14 +173,17 @@ public class BD_Manager implements Intercambio {
 		
 	}
 
-	
 	@Override
 	public HashMap<Integer, Personajes> AñadirPer() {
 		Modelo mModelo = new Modelo();
 		try {
 		Controlador mControlador = new Controlador();
 		PreparedStatement pstm;
-		mVista.PedirDatoPerDB(ListaPersonajes);
+		
+			mVista.PedirDatoPerDB(ListaPersonajes);
+		
+		
+		
 		
 		
 		
@@ -181,7 +236,35 @@ public class BD_Manager implements Intercambio {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return ListaVideojuegos;
+	}
+	public HashMap<Integer, Videojuego> LeerTodosAux() {
+		Modelo mModelo = new Modelo();
+		Controlador mControlador = new Controlador();
+		// TODO Auto-generated method stub
+		PreparedStatement pstm;
+		String cargar = "Select * from videojuegos";
+		try {
+			pstm = mModelo.conexion.prepareStatement(cargar);
+			ResultSet rset = pstm.executeQuery();
+			while (rset.next()) {
+				int id = rset.getInt("ID");
+				String Nombre = rset.getString("Nombre");
+				String Fecha = rset.getString("Fecha_Lanzamiento");
+				String Desarrollador = rset.getString("Desarrollador");
+				String Plataforma = rset.getString("Plataforma");
+				Videojuego mVideojuego = new Videojuego(Nombre, Fecha, Desarrollador, Plataforma);
 
+				ListaVideojuegos.put(id, mVideojuego);
+			}
+			mVista.sacarPantalla(ListaVideojuegos);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return ListaVideojuegos;
 	}
 	
@@ -213,5 +296,6 @@ public class BD_Manager implements Intercambio {
 
 		return ListaPersonajes;
 	}
+	
 
 }

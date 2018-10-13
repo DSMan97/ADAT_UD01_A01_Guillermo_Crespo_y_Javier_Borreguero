@@ -58,7 +58,7 @@ public class Modelo {
 				// stmt.close();
 				// conexion.close();
 			}
-			System.out.println(" - Conexión con MySQL establecida -");
+			//System.out.println(" - Conexión con MySQL establecida -");
 
 		} catch (Exception e) {
 			System.out.println(" – Error de Conexión con MySQL -");

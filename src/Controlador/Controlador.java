@@ -17,11 +17,17 @@ public class Controlador {
 	public void ImprimirDatos() {
 		mBD.LeerTodos();
 	}
+	public void ImprimirVideojuegos() {
+		mBD.LeerTodosAux();
+	}
 	public void ImprimirDatosPer() {
 		mBD.LeerTodosPer();
 	}
 	public void InsertarBBDD() {
 		mBD.Añadir();
+	}
+	public void InsertarBBDDPer() {
+		mBD.AñadirPer();
 	}
 	public void Leer_Fichero() {
 		mFM.LeerTodos();
@@ -32,9 +38,15 @@ public class Controlador {
 	public void Escribir_Fichero() {
 		mFM.EscribirTodos();
 	}
+	public void Escribir_FicheroPer() {
+		mFM.EscribirTodosPer();
+	}
 	
 	public void TXT2BBDD() {
 		mBD.EscribirTodos();
+	}
+	public void TXT2BBDDPer() {
+		mBD.EscribirTodosPer();
 	}
 	public void BBDD2TXT(){
 		mFM.Añadir();
