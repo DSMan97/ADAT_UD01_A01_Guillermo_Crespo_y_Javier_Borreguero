@@ -103,22 +103,8 @@ public class Inicio {
 			break;
 
 		case 4:
-			System.out.println("  1: Pasar Fichero Videojuegos a BBDD");
-			System.out.println("  2: Pasar Fichero Personajes a BBDD");
-			Scanner opt4 = new Scanner(System.in);
-			System.out.print("    Elija una opción:  ");
-			int eleccion4 = opt4.nextInt();
-			switch (eleccion4) {
-			case 1:
-				mControlador.TXT2BBDD();
-				break;
-			case 2:
-				mControlador.TXT2BBDDPer();
-			default:
-				break;
-
-			}
 			mControlador.TXT2BBDD();
+			
 			break;
 		case 5:
 			System.out.println("  1: Leer Tabla Videojuegos");

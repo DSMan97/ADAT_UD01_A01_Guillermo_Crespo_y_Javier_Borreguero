@@ -71,8 +71,8 @@ public class BD_Manager implements Intercambio {
 				
 				pstm = mModelo.conexion.prepareStatement(cargar);
 				rset = pstm.executeUpdate();
-//			EscribirTodosPer();
 			}
+			EscribirTodosPer();
 			br.close();
 			 
 		} catch (IOException | SQLException e) {
@@ -111,31 +111,16 @@ public class BD_Manager implements Intercambio {
 			ListaPersonajes.put(id, mPersonaje);
 				}
 			PreparedStatement pstm;
-			String deltabla1 = "DELETE FROM `personajes`";
+			String deltabla1 = "DELETE FROM `personajes`;";
 			pstm = mModelo.conexion.prepareStatement(deltabla1);
-			int rset = pstm.executeUpdate();
-			String deltekey1="ALTER TABLE `personajes`  DROP KEY `ID_Juego` (`ID_Juego`);";
-			pstm = mModelo.conexion.prepareStatement(deltabla1);
-			rset = pstm.executeUpdate();
-			String deltekey2="ALTER TABLE `videojuegos`  DROP PRIMARY KEY (`ID`);";
-			pstm = mModelo.conexion.prepareStatement(deltekey2);
-			rset = pstm.executeUpdate();
-			String deletekey = "ALTER TABLE `personajes DROP CONSTRAINT `personajes_ibfk_1` FOREIGN KEY (`ID_Juego`) REFERENCES `videojuegos` (`ID`); ";
-			pstm = mModelo.conexion.prepareStatement(deletekey);
-			rset = pstm.executeUpdate();
+			 int rset = pstm.executeUpdate();
+			
+			
 			
 			for (Entry<Integer, Personajes> entry : ListaPersonajes.entrySet()) {
 				String cargar = "INSERT INTO `personajes`(`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES ("
 						+entry.getKey()+ "," + "'" + entry.getValue().getNombre_Personaje() + "'" + "," + "'" + entry.getValue().getID_Juego() + "'" + ")";
 			
-				String addtekey1="ALTER TABLE `personajes`  ADD KEY `ID_Juego` (`ID_Juego`);";
-				pstm = mModelo.conexion.prepareStatement(addtekey1);
-				rset = pstm.executeUpdate();
-				String addtekey2="ALTER TABLE `videojuegos`  ADD PRIMARY KEY (`ID`);";
-				pstm = mModelo.conexion.prepareStatement(addtekey2);
-				rset = pstm.executeUpdate();
-				String addrel = "ALTER TABLE `personajes ADD CONSTRAINT `personajes_ibfk_1` FOREIGN KEY (`ID_Juego`) REFERENCES `videojuegos` (`ID`); ";
-				pstm = mModelo.conexion.prepareStatement(addrel);
 				pstm = mModelo.conexion.prepareStatement(cargar);
 				rset = pstm.executeUpdate();
 			}

@@ -45,9 +45,6 @@ public class Controlador {
 	public void TXT2BBDD() {
 		mBD.EscribirTodos();
 	}
-	public void TXT2BBDDPer() {
-		mBD.EscribirTodosPer();
-	}
 	public void BBDD2TXT(){
 		mFM.Añadir();
 	}
