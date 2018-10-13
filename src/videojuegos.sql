@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2018 a las 13:03:35
--- Versión del servidor: 10.1.28-MariaDB
--- Versión de PHP: 7.1.11
+-- Tiempo de generación: 13-10-2018 a las 15:32:02
+-- Versión del servidor: 10.1.29-MariaDB
+-- Versión de PHP: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -22,6 +22,22 @@ SET time_zone = "+00:00";
 -- Base de datos: `videojuegos`
 --
 CREATE DATABASE `videojuegos`;
+
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_key` ()  NO SQL
+ALTER TABLE personajes
+  ADD CONSTRAINT personajes_ibfk_1 FOREIGN KEY (ID_Juego) REFERENCES videojuegos (ID)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `eliminar_key` ()  NO SQL
+ALTER TABLE personajes
+  DROP FOREIGN KEY personajes_ibfk_1$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -73,7 +89,7 @@ INSERT INTO `videojuegos` (`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`,
 -- Indices de la tabla `personajes`
 --
 ALTER TABLE `personajes`
-  ADD KEY `ID_Juego` (`ID_Juego`);
+  ADD KEY `personajes_ibfk_1` (`ID_Juego`);
 
 --
 -- Indices de la tabla `videojuegos`
