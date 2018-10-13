@@ -1,3 +1,9 @@
+ID: 1
+Nombre: Mario
+ID_Juego: 2
 ID: 0
-Nombre: Mario Bros
-id_juego: 0
+Nombre: Nathan Drake
+ID_Juego: 1
+ID: 3
+Nombre: Princesa Peach
+ID_Juego: 0

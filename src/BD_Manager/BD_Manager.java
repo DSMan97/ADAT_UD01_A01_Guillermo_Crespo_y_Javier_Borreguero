@@ -2,6 +2,7 @@ package BD_Manager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -38,11 +39,10 @@ public class BD_Manager implements Intercambio {
 	public HashMap<Integer, Videojuego> EscribirTodos() {
 		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
-	
+		
 		  
 	       
 		try {
-			
 			
 			
 			BufferedReader br = new BufferedReader(new FileReader (archivo_videojuegos));
@@ -52,33 +52,29 @@ public class BD_Manager implements Intercambio {
 			while ((linea=br.readLine())!=null) {
 			String idtxt = linea.substring(4);
 			int id = Integer.parseInt(idtxt);
-			String nametxt = linea.substring(8);
-			System.out.println(nametxt);
-			String fechatxt =  linea.substring(22);
-			String desarrolladortxt =   linea.substring(15);
-			String plataformatxt =  linea.substring(12);
+			String nametxt = br.readLine().substring(8);
+			String fechatxt =  br.readLine().substring(22);
+			String desarrolladortxt =   br.readLine().substring(15);
+			String plataformatxt =  br.readLine().substring(12);
 				
 			Videojuego mVideojuego = new Videojuego(nametxt, fechatxt, desarrolladortxt, plataformatxt);
 			ListaVideojuegos.put(id, mVideojuego);
 				}
 			PreparedStatement pstm;
-			String deltabla1 = "DELETE FROM `personajes`";
-			String deltabla2 = "DELETE FROM `videojuegos`";
+			String deltabla1 = "DELETE FROM `videojuegos`";
+			pstm = mModelo.conexion.prepareStatement(deltabla1);
+			int rset = pstm.executeUpdate();
 			for (Entry<Integer, Videojuego> entry : ListaVideojuegos.entrySet()) {
 				String cargar = "INSERT INTO `videojuegos`(`ID`, `Nombre`, `Fecha_Lanzamiento`, `Desarrollador`, `Plataforma`) VALUES ("
 						+ entry.getKey()+ "," + "'" + entry.getValue().getNombre() + "'" + "," + "'" + entry.getValue().getFecha_Lanzamiento() + "'" + "," + "'" + entry.getValue().getDesarrollador() + "'" + ","
 						+ "'" + entry.getValue().getPlataforma() + "'" + ")";
-				pstm = mModelo.conexion.prepareStatement(deltabla1);
-				pstm = mModelo.conexion.prepareStatement(deltabla2);
+				
 				pstm = mModelo.conexion.prepareStatement(cargar);
-				int rset = pstm.executeUpdate();
-			EscribirTodosPer();
+				rset = pstm.executeUpdate();
+//			EscribirTodosPer();
 			}
-			
-			     
-			    
-			
-			 br.close();
+			br.close();
+			 
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,15 +89,13 @@ public class BD_Manager implements Intercambio {
 	public HashMap<Integer, Personajes> EscribirTodosPer() {
 		Modelo mModelo = new Modelo();
 		Controlador mControlador = new Controlador();
-		  FileReader fr = null;
-	      BufferedReader br = null;
+		
 		try {
 			
 			
 			
 			
-			fr = new FileReader (archivo_personajes);
-			 br = new BufferedReader(fr);
+			BufferedReader br = new BufferedReader(new FileReader (archivo_personajes));
 				
 			     
 		
@@ -109,8 +103,8 @@ public class BD_Manager implements Intercambio {
 			while ((linea=br.readLine())!=null) {
 			String idtxt = linea.substring(4);
 			int id = Integer.parseInt(idtxt);
-			String nombre_Personaje = linea.substring(8);
-			String id_Juegotxt =  linea.substring(10);
+			String nombre_Personaje = br.readLine().substring(8);
+			String id_Juegotxt =  br.readLine().substring(10);
 			int id_Juego = Integer.parseInt(id_Juegotxt);
 				
 			Personajes mPersonaje = new Personajes(nombre_Personaje, id_Juego);
@@ -118,14 +112,32 @@ public class BD_Manager implements Intercambio {
 				}
 			PreparedStatement pstm;
 			String deltabla1 = "DELETE FROM `personajes`";
+			pstm = mModelo.conexion.prepareStatement(deltabla1);
+			int rset = pstm.executeUpdate();
+			String deltekey1="ALTER TABLE `personajes`  DROP KEY `ID_Juego` (`ID_Juego`);";
+			pstm = mModelo.conexion.prepareStatement(deltabla1);
+			rset = pstm.executeUpdate();
+			String deltekey2="ALTER TABLE `videojuegos`  DROP PRIMARY KEY (`ID`);";
+			pstm = mModelo.conexion.prepareStatement(deltekey2);
+			rset = pstm.executeUpdate();
+			String deletekey = "ALTER TABLE `personajes DROP CONSTRAINT `personajes_ibfk_1` FOREIGN KEY (`ID_Juego`) REFERENCES `videojuegos` (`ID`); ";
+			pstm = mModelo.conexion.prepareStatement(deletekey);
+			rset = pstm.executeUpdate();
 			
 			for (Entry<Integer, Personajes> entry : ListaPersonajes.entrySet()) {
 				String cargar = "INSERT INTO `personajes`(`ID`, `Nombre_Personaje`, `ID_Juego`) VALUES ("
 						+entry.getKey()+ "," + "'" + entry.getValue().getNombre_Personaje() + "'" + "," + "'" + entry.getValue().getID_Juego() + "'" + ")";
-				
-				pstm = mModelo.conexion.prepareStatement(deltabla1);
+			
+				String addtekey1="ALTER TABLE `personajes`  ADD KEY `ID_Juego` (`ID_Juego`);";
+				pstm = mModelo.conexion.prepareStatement(addtekey1);
+				rset = pstm.executeUpdate();
+				String addtekey2="ALTER TABLE `videojuegos`  ADD PRIMARY KEY (`ID`);";
+				pstm = mModelo.conexion.prepareStatement(addtekey2);
+				rset = pstm.executeUpdate();
+				String addrel = "ALTER TABLE `personajes ADD CONSTRAINT `personajes_ibfk_1` FOREIGN KEY (`ID_Juego`) REFERENCES `videojuegos` (`ID`); ";
+				pstm = mModelo.conexion.prepareStatement(addrel);
 				pstm = mModelo.conexion.prepareStatement(cargar);
-				int rset = pstm.executeUpdate();
+				rset = pstm.executeUpdate();
 			}
 				
 	
